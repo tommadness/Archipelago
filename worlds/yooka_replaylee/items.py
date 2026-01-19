@@ -1,30 +1,75 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+import itertools
+from typing import TYPE_CHECKING, NamedTuple
 
 from BaseClasses import Item, ItemClassification
 
 if TYPE_CHECKING:
     from .world import ReplayleeWorld
 
+class ItemData(NamedTuple):
+    qty: int
+    classification: ItemClassification
+
 # Every item must have a unique integer ID associated with it.
 # We will have a lookup from item name to ID here that, in world.py, we will import and bind to the world class.
 # Even if an item doesn't exist on specific options, it must be present in this lookup.
+
 ITEM_NAME_TO_ID = {
     "Quill": 1,
     "Pagie": 2,
     "Glide": 3,
     "Q.U.I.D.": 4,
+    "Tail Twirl": 5,
+    "Invisibility": 6,
+    "Aerial Tail Twirl": 7,
+    "Sonar Shot": 8,
+    "Sonar Boom": 9,
+    "Sonar Shield": 10,
+    "Roll": 11,
+    "EatMk1": 12,
+    "EatMk2": 13,
+    "EatMk3": 14,
+    "Wheel Spin Attack": 15,
+    "Fly": 16,
+    "Ground Pound": 17,
+    "Air Bubble": 19,
+    "Tongue Grapple Hook": 20,
+    "Wheel Dash Attack": 21,
+
+}
+MOVES = {
+    "Tail Twirl":           ItemData(1, ItemClassification.progression),
+    "Glide":                ItemData(1, ItemClassification.progression),
+    "Invisibility":         ItemData(1, ItemClassification.progression),
+    "Aerial Tail Twirl":    ItemData(1, ItemClassification.progression),
+    "Sonar Shot":           ItemData(1, ItemClassification.progression),
+    "Sonar Boom":           ItemData(1, ItemClassification.progression),
+    "Sonar Shield":         ItemData(1, ItemClassification.progression),
+    "Roll":                 ItemData(1, ItemClassification.progression),
+    "EatMk1":               ItemData(1, ItemClassification.progression),
+    "EatMk2":               ItemData(1, ItemClassification.progression),
+    "EatMk3":               ItemData(1, ItemClassification.progression),
+    "Wheel Spin Attack":    ItemData(1, ItemClassification.progression),
+    "Fly":                  ItemData(1, ItemClassification.progression),
+    "Ground Pound":         ItemData(1, ItemClassification.progression),
+    "High Jump":            ItemData(1, ItemClassification.progression),
+    "Air Bubble":           ItemData(1, ItemClassification.progression),
+    "Tongue Grapple Hook":  ItemData(1, ItemClassification.progression),
+    "Wheel Dash Attack":    ItemData(1, ItemClassification.progression),
+    "Jump":                 ItemData(1, ItemClassification.progression),
+}
+
+COLLECTIBLES = {
+    "Quill":                ItemData(50, ItemClassification.progression),
+    "Pagie":                ItemData(50, ItemClassification.progression),
+    "Q.U.I.D.":             ItemData(0, ItemClassification.filler),
 }
 
 # Items should have a defined default classification.
 # In our case, we will make a dictionary from item name to classification.
-DEFAULT_ITEM_CLASSIFICATIONS = {
-    "Quill": ItemClassification.progression,
-    "Pagie": ItemClassification.progression,
-    "Glide": ItemClassification.progression,
-    "Q.U.I.D.": ItemClassification.filler,
-}
+ALL_ITEMS = {**MOVES, **COLLECTIBLES}
 
 
 # Each Item instance must correctly report the "game" it belongs to.
@@ -52,7 +97,8 @@ def create_item_with_correct_classification(world: ReplayleeWorld, name: str) ->
     # So, we make this helper function that creates the item by name with the correct classification.
     # Note: This function's content could just be the contents of world.create_item in world.py directly,
     # but it seemed nicer to have it in its own function over here in items.py.
-    classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
+    classification = ALL_ITEMS[name].classification
+
 
     # It is perfectly normal and valid for an item's classification to differ based on the player's options.
     # In our case, Health Upgrades are only relevant to logic (and thus labeled as "progression") in hard mode.
@@ -71,11 +117,9 @@ def create_all_items(world: ReplayleeWorld) -> None:
     # Creating items should generally be done via the world's create_item method.
     # First, we create a list containing all the items that always exist.
 
-    itempool: list[Item] = [
-        world.create_item("Quill"),
-        world.create_item("Pagie"),
-        world.create_item("Glide"),
-    ]
+    itempool: list[Item] = []
+    itempool.extend([world.create_item(move_name) for move_name in MOVES.keys()])
+    # itempool.extend([world.create_item("Pagie") for _ in range(50)])
 
     # Some items may only exist if the player enables certain options.
     # In our case, If the hammer option is enabled, the sixth item is the Hammer.
