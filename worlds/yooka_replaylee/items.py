@@ -29,15 +29,16 @@ ITEM_NAME_TO_ID = {
     "Sonar Shield": 10,
     "Roll": 11,
     "EatMk1": 12,
-    "EatMk2": 13,
+    "Ice Shot": 13,
     "EatMk3": 14,
     "Wheel Spin Attack": 15,
     "Fly": 16,
     "Ground Pound": 17,
+    # "High Jump": 18,
     "Air Bubble": 19,
     "Tongue Grapple Hook": 20,
     "Wheel Dash Attack": 21,
-
+    # "Jump": 22,
 }
 MOVES = {
     "Tail Twirl":           ItemData(1, ItemClassification.progression),
@@ -49,7 +50,7 @@ MOVES = {
     "Sonar Shield":         ItemData(1, ItemClassification.progression),
     "Roll":                 ItemData(1, ItemClassification.progression),
     "EatMk1":               ItemData(1, ItemClassification.progression),
-    "EatMk2":               ItemData(1, ItemClassification.progression),
+    "Ice Shot":             ItemData(1, ItemClassification.progression),
     "EatMk3":               ItemData(1, ItemClassification.progression),
     "Wheel Spin Attack":    ItemData(1, ItemClassification.progression),
     "Fly":                  ItemData(1, ItemClassification.progression),
