@@ -258,7 +258,11 @@ def create_regular_locations(world: ReplayleeWorld) -> None:
     tt_quill_locations = get_location_names_with_ids(
         [f"TT - Quill {i}" for i in range(150)]
     )
+    tt_pagie_locations = get_location_names_with_ids(
+        [f"TT - Pagie {i}" for i in range(50)]
+    )
     tt_start_island.add_locations(tt_quill_locations, YookaReplayleeLocation)
+    tt_start_island.add_locations(tt_pagie_locations, YookaReplayleeLocation)
 
     # Locations may be in different regions depending on the player's options.
     # In our case, the hammer option puts the Top Middle Chest into its own room called Top Middle Room.
