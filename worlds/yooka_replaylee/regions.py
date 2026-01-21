@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from BaseClasses import Entrance, Region
+from Utils import visualize_regions
 
 if TYPE_CHECKING:
     from .world import ReplayleeWorld
@@ -56,6 +57,8 @@ def connect_regions(world: ReplayleeWorld) -> None:
     # An even easier way is to use the region.connect helper.
     ht_near_tt.connect(tt_start_island, "Hivory Towers to TT Start Island")
     tt_start_island.connect(tt_near_shovel_knight, "TT Start Island to Near Shovel Knight")
+
+    visualize_regions(world.multiworld.get_region("Hivory Towers Entrance", world.player), "my_world.puml")
 
     # The region.connect helper even allows adding a rule immediately.
     # We'll talk more about rule creation in the set_all_rules() function in rules.py.
