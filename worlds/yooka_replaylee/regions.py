@@ -58,7 +58,6 @@ def connect_regions(world: ReplayleeWorld) -> None:
     ht_near_tt.connect(tt_start_island, "Hivory Towers to TT Start Island")
     tt_start_island.connect(tt_near_shovel_knight, "TT Start Island to Near Shovel Knight")
 
-    visualize_regions(world.multiworld.get_region("Hivory Towers Entrance", world.player), "my_world.puml")
 
     # The region.connect helper even allows adding a rule immediately.
     # We'll talk more about rule creation in the set_all_rules() function in rules.py.

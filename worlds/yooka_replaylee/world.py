@@ -2,7 +2,9 @@ from collections.abc import Mapping
 from typing import Any
 
 # Imports of base Archipelago modules must be absolute.
+from Utils import visualize_regions
 from worlds.AutoWorld import World
+from worlds.apquest import world
 
 # Imports of your world's files must be relative.
 from . import items, locations, regions, rules, web_world
@@ -84,3 +86,8 @@ class ReplayleeWorld(World):
         return self.options.as_dict(
             "hard_mode", "hammer", "extra_starting_chest", "confetti_explosiveness", "player_sprite"
         )
+    
+    def generate_output(self, output_directory) -> None:
+        visualize_regions(self.multiworld.get_region("Hivory Towers Entrance", self.player), "my_world.puml")
+        super().generate_output(output_directory)
+
